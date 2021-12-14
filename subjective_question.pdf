@@ -1,0 +1,104 @@
+1. From your analysis of the categorical variables from the dataset, what could you infer about
+their effect on the dependent variable? 
+	- Categorical variable Mnth (Month) has a significant effect on the dependent variable. 
+	  Day of the week has moderate effect on the dependent variable
+	  Season has very less or no effect on the dependent variable
+	
+2. Why is it important to use drop_first=True during dummy variable creation? 
+	- drop_first=True removes the first dummy variable. If the column has N different values, then the values can be represented using N-1  columns. So it is important to drop the column which is redundant.
+		eg: If the column has values Married, Single and Divorced, then we can represent these values with just 2 columns.
+			The columns can be Married and Single. 
+			If Married column contains the value 1 and Single column contains 0, it implies value is Married
+			If Married column contains the value 0 and Single column contains 1, it implies value is Single
+			If Married column contains the value 0 and Single column contains 0, it implies value is Divorced
+			
+
+3. Looking at the pair-plot among the numerical variables, which one has the highest correlation
+with the target variable?
+	- temp column has the highest correlation
+	
+4. How did you validate the assumptions of Linear Regression after building the model on the
+training set?
+	- Below steps we performed to validate the model on the training set
+		a. R-squared value was greater than 0.8 which implies that 80% of the variance of train data is explained by the model
+		b. Non of the indendent variable has VIF greater than 5 which imples that each independent variable has very less association with other variable
+		c. Plotting residuals resulted in normal distribution which means that the error values have a mean of 0 and standard deviation of 1
+		
+5. Based on the final model, which are the top 3 features contributing significantly towards
+explaining the demand of the shared bikes? 
+	- The top 3 features contributing significantly towards the demand of the shared bike are	
+		a. Year
+		b. Windspeed
+		c. Month ( December )
+	
+---------------------------------------------------------------------------------------------------------------------------
+1. Explain the linear regression algorithm in detail. (4 marks)
+	- Linear regression algorithm is plotting the dependent variable and trying to fit the best line among the plotted values, which best explains the distribution. The line helps to predict the target variable.
+	While building a linear model, you assume that the target variable and the input variables are linearly dependent. Along with linear dependency, the below assumptions are also made
+		1. Linear relationship between X and Y
+		2. Error terms are normally distributed
+		3. Error terms are independent of each other
+		4. Error terms have constant variance
+	
+2. Explain the Anscombe’s quartet in detail. 
+	- Anscombe’s quartet is a set of 4 graphs which plots statistically similar looking data on the graph to demonstrate how different the graph looks. The data sets have similar Mean, Standard Deviation and correlation but once put on the graph, each graph looks very different. 
+	The plotted data on the graph had below properties
+		1. The first graph had scattered points across the best fit line.
+		2. The second graph had a smooth arch shared curve which was non linear
+		3. The thrid graph had a all the points on the best fit line or very close to the best fit line and had one outlier.
+		4. The fourth graph had all the points on a vertical straight line (prallel to y axis) and had one outlier. 
+		
+	Though the data set had similary statistical values, each data set looked very different when plotted on the graph. With these graph, Anscombe proved that, it is always better to plot the data and visualize even if the data looks very similar.  
+		
+3. What is Pearson’s R? (3 marks)
+	- The Pearson's Correlation Coefficient is also referred to as Pearson's r. It measures the linear correlation between two variables and the value lies between -1.0 and +1.0. Pearson's correlation coefficient is the covariance of the two variables divided by the product of their standard deviations. Pearson’s correlation coefficient calculates the effect of change in one variable when the other variable changes.
+		There are different types of relationship
+			a. Positive linear relationship: eg:the income of a person increases as his/her age increases.
+			b. Negative linear relationship: eg: If the vehicle increases its speed, the time taken to travel decreases.
+		
+		Pearson correlation coefficient, r, tries to find out two things – the strength and the direction of the relationship from the given sample sizes.
+	The more inclined the value of the Pearson correlation coefficient to -1 and 1, the stronger the association between the two variables. 
+		1. When the value of the correlation coefficient is exactly 1.0, it is said to be a positive correlation. This situation means that when there is a change in one variable, either negative or positive, the second variable also changes in the same direction
+		2. When the value of the correlation coefficient is exactly -1.0, means that the vaiables are negatively correlated and the two assets move in opposite directions. This situation means that when there is a change in one variable the other variable changes in the opposite direction.
+		3. zero correlation implies no linear relationship at all.  
+
+4. What is scaling? Why is scaling performed? What is the difference between normalized scaling
+and standardized scaling? (3 marks)
+	- Feature scaling is a method used to normalize the range of independent variables or features of data
+	
+		Scaling is performed to reduce the distance between the plotted values. For example, if we are plotting the height of a person on y axis and if the values of height is in millimeters, then a person of height 175 cms will have a value of 1750 millimeters and a person of height 140 cms will have a value of 1400 millimeters. So the range of values will be too high. So we perform scaling so that values are in a smaller range and can be easily plotted on the graph.
+		
+		There are two major methods to scale the variables, i.e. standardisation and MinMax scaling. Standardisation basically brings all of the data into a standard normal distribution with mean zero and standard deviation one. MinMax scaling, on the other hand, brings all of the data in the range of 0 and 1. The formulae in the background used for each of these methods are as given below: 
+
+			Standardisation:  
+				x=x−mean(x)/sd(x)
+			MinMax Scaling: 
+				x=x−min(x)/max(x)−min(x)
+
+5. You might have observed that sometimes the value of VIF is infinite. Why does this happen?
+	- VIF is a measure of how well a predictor variable is correlated with all the other variables, excluding the target variable.
+	  If there is perfect correlation between one indendent variable with other independent variables and if we come up with a model using these variables, then the R-Squared value of this model will be 1.
+		eg: if we have 3 columns "Age at the time of First job", "Number of years since First job" and "Age" and if we come up with a model with "Age" as the target variable and columns "Age at the time of First job", "Number of years since First job" as then independent variables, then the R-Squared value of this model will be 1. This is because we know 
+			Age = Age at the time of First job + Number of years since First job
+	  VIF is calculated using the formula 
+			VIF =1/(1−R^2)
+			substituting the values of R^2 as 1
+			VIF = 1/(1-1)
+				= infinity
+	
+6. What is a Q-Q plot? Explain the use and importance of a Q-Q plot in linear regression.
+	- Q-Q plot is the quantile - quantile plot, which help to find out the distribution of the data.
+	Using the QQ plot we can find the type of distribution for a random variable whether it be a Gaussian Distribution, Uniform Distribution, Exponential Distribution or even Pareto Distribution, etc. Commonly QQ plot is used to find out if the data is Normally distributed. 
+	By drawing the QQ plot, we can find 
+		1. if the data is normally distributed or distribution type of the data
+		2. Skewness of the data
+		3. Tailedness of the distribution
+		
+	We plot the theoretical quantiles on the x-axis and the ordered values for the random variable on the y-axis, which gives a straight line like structure from each point plotted on the graph. If the values fall on the straight line, that means that the data follows normal distribution. If the points at the ends of the curve formed from the points are not falling on a straight line but are scattered,
+	signifies ordered values which we wanted to calculate are not Normally distributed.
+	
+	If the bottom end of the Q-Q plot deviates from the straight line but the upper end is on the line, then its called left-skewed (or negatively skewed). If the upper end of the Q-Q plot deviates from the straight line and the lower and follows a straight line then it is right-skewed (or positively skewed).
+	
+	The distribution with a fat tail will have both the ends of the Q-Q plot to deviate from the straight line and its center follows a straight line, whereas a thin-tailed distribution will form a Q-Q plot with a very less or negligible deviation at the ends
+	
+		
